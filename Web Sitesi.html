@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ali Erdem Yılmaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0910;
+    --bg-2: #100e1a;
+    --surface: #16131f;
+    --surface-2: #1c1828;
+    --border: #2a2536;
+    --text: #ece9f5;
+    --muted: #8d87a1;
+    --muted-2: #625c75;
+    --violet: #a855f7;
+    --pink: #ec4899;
+    --grad: linear-gradient(120deg, var(--violet), var(--pink));
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--violet); color: #fff; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(10,9,16,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height: 64px;
+  }
+  .logo{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+  .logo b{ color: var(--text); }
+  .nav-links{ display:flex; gap: 28px; font-size: 14px; color: var(--muted); }
+  .nav-links a:hover{ color: var(--text); }
+  @media (max-width: 620px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position: relative;
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    padding-top: 64px;
+    overflow: hidden;
+  }
+  #agent-canvas{
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    opacity: 0.9;
+  }
+  .hero-content{
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--pink);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before{
+    content:'';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--grad);
+    box-shadow: 0 0 12px var(--pink);
+  }
+  h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  h1 .grad{
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-sub{
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+  .hero-sub b{ color: var(--text); font-weight: 600; }
+
+  .btn-row{ display:flex; flex-wrap: wrap; gap: 14px; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    padding: 13px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    transition: all .2s ease;
+  }
+  .btn-primary{
+    background: var(--grad);
+    color: #fff;
+    border: none;
+    font-weight: 500;
+  }
+  .btn-primary:hover{ filter: brightness(1.12); transform: translateY(-2px); }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--violet); color: var(--violet); transform: translateY(-2px); }
+
+  .scroll-cue{
+    position:absolute;
+    bottom: 34px;
+    left: 28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-2);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:2;
+  }
+  .scroll-cue .line{ width: 28px; height:1px; background: var(--muted-2); animation: pulse-line 2s infinite; }
+  @keyframes pulse-line{ 0%,100%{ opacity:.3 } 50%{ opacity:1 } }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding: 110px 0; position: relative; border-top: 1px solid var(--border); }
+  .sec-head{ margin-bottom: 52px; }
+  .sec-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--pink);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .sec-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    align-items:start;
+  }
+  @media (max-width: 760px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-text p{ color: var(--muted); font-size: 1.02rem; margin-bottom: 18px; }
+  .about-text b{ color: var(--text); font-weight: 600; }
+  .about-text .accent{ color: var(--violet); font-weight: 600; }
+
+  .info-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+  }
+  .info-row{
+    display:flex;
+    justify-content:space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+  }
+  .info-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .info-row .k{ color: var(--muted-2); font-family:'IBM Plex Mono', monospace; }
+  .info-row .v{ color: var(--text); text-align:right; }
+
+  /* ---------- PROJECTS ---------- */
+  .projects{ display:flex; flex-direction:column; gap: 18px; }
+  .proj-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 30px;
+    display:grid;
+    grid-template-columns: 44px 1fr;
+    gap: 22px;
+    transition: border-color .2s ease, transform .2s ease;
+    position: relative;
+    overflow:hidden;
+  }
+  .proj-card:hover{ border-color: var(--violet); transform: translateY(-3px); }
+  .proj-card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height: 2px;
+    background: var(--grad);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .proj-card:hover::before{ transform: scaleX(1); }
+  .proj-icon{
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--pink);
+    border: 1px solid var(--border);
+  }
+  .proj-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .proj-desc{ color: var(--muted); font-size: 14.5px; margin-bottom: 14px; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap: 8px; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .status{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--violet);
+    display:flex; align-items:center; gap:6px;
+    margin-top: 14px;
+  }
+  .status::before{ content:''; width:6px; height:6px; border-radius:50%; background: var(--violet); box-shadow:0 0 8px var(--violet); animation: blink 1.6s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* ---------- SKILLS (signature) ---------- */
+  .skills-field{
+    position: relative;
+    height: 320px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: radial-gradient(circle at 30% 20%, rgba(168,85,247,0.08), transparent 60%), var(--surface);
+    overflow: hidden;
+  }
+  #skills-canvas{ position:absolute; inset:0; width:100%; height:100%; }
+  .skill-caption{
+    margin-top: 16px;
+    color: var(--muted-2);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-align:center;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-box{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 52px;
+    text-align:center;
+    position: relative;
+    overflow:hidden;
+  }
+  .contact-box::after{
+    content:'';
+    position:absolute;
+    width: 320px; height: 320px;
+    background: var(--grad);
+    filter: blur(90px);
+    opacity: 0.18;
+    top: -120px; right: -80px;
+    border-radius: 50%;
+  }
+  .contact-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin-bottom: 14px;
+    position:relative;
+  }
+  .contact-sub{ color: var(--muted); margin-bottom: 32px; position:relative; }
+  .contact-links{ display:flex; flex-wrap:wrap; justify-content:center; gap: 14px; position:relative; }
+
+  footer{
+    padding: 32px 0 44px;
+    text-align:center;
+    color: var(--muted-2);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--violet);
+    outline-offset: 3px;
+  }
+
+  /* ---------- CHAT WIDGET ---------- */
+  #chat-toggle{
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--grad);
+    border: none;
+    cursor: pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 6px 24px rgba(168,85,247,0.35);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  #chat-toggle:hover{ transform: translateY(-2px) scale(1.04); box-shadow: 0 10px 28px rgba(168,85,247,0.45); }
+  #chat-toggle svg{ width: 24px; height: 24px; }
+  #chat-toggle .dot{
+    position:absolute; top:2px; right:2px;
+    width:10px; height:10px; border-radius:50%;
+    background:#4ade80; border:2px solid var(--bg);
+  }
+
+  #chat-panel{
+    position: fixed;
+    bottom: 88px;
+    right: 24px;
+    z-index: 100;
+    width: min(340px, calc(100vw - 40px));
+    height: min(460px, calc(100vh - 140px));
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    opacity:0; transform: translateY(12px) scale(.98);
+    pointer-events:none;
+    transition: opacity .18s ease, transform .18s ease;
+  }
+  #chat-panel.open{ opacity:1; transform:none; pointer-events:auto; }
+
+  #chat-panel .chat-head{
+    padding: 14px 16px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  #chat-panel .chat-head-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 14px; font-weight:600;
+  }
+  #chat-panel .chat-head-sub{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px; color: var(--muted-2);
+  }
+  #chat-close{
+    background:none; border:none; color: var(--muted); cursor:pointer;
+    font-size: 18px; line-height:1; padding:4px;
+  }
+  #chat-close:hover{ color: var(--text); }
+
+  #chat-messages{
+    flex:1;
+    overflow-y:auto;
+    padding: 16px;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+  .chat-msg{
+    max-width: 84%;
+    padding: 9px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .chat-msg.bot{
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    align-self:flex-start;
+    border-bottom-left-radius: 3px;
+  }
+  .chat-msg.user{
+    background: var(--grad);
+    color:#fff;
+    align-self:flex-end;
+    border-bottom-right-radius: 3px;
+  }
+  .chat-msg.pending{ color: var(--muted-2); font-style:italic; }
+
+  #chat-form{
+    display:flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  #chat-input{
+    flex:1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    resize:none;
+  }
+  #chat-input:focus{ outline:none; border-color: var(--violet); }
+  #chat-send{
+    background: var(--grad);
+    border:none;
+    border-radius: 8px;
+    width: 40px;
+    color:#fff;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  #chat-send:disabled{ opacity:.5; cursor:not-allowed; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">AE<b>Y</b> / portfolyo</div>
+    <div class="nav-links">
+      <a href="#hakkimda">Hakkımda</a>
+      <a href="#projeler">Projeler</a>
+      <a href="#yetenekler">Yetenekler</a>
+      <a href="#iletisim">İletişim</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="agent-canvas"></canvas>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Robert Koleji · 10. Sınıf</div>
+    <h1>Ali Erdem Yılmaz<br><span class="grad">Ekonomi, Finans &amp; AI</span></h1>
+    <p class="hero-sub">
+      Yapay zeka, ekonomi ve politika kesişimini merak eden hırslı bir öğrenciyim.
+      Şu an <b>çoklu-ajan (multi-agent) sistemler</b> ve yapay zekanın finansal
+      düzenlemelere etkisi üzerine projeler geliştiriyorum.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#projeler">Projelerimi Gör</a>
+      <a class="btn btn-ghost" href="https://github.com/alierdem1yilmaz" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost" href="mailto:yilalie.29@robcol.k12.tr">İletişime Geç</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"></div>AŞAĞI KAYDIR</div>
+</header>
+
+<section id="hakkimda">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01 / Hakkımda</div>
+      <div class="sec-title">Merhaba, ben Ali Erdem</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Robert Koleji'nde <b>10. sınıfa geçen</b>, yapay zeka, ekonomi ve
+          politika gibi konulara ilgi duyan hırslı bir öğrenciyim. Bu alanlardaki
+          merakım beni hem teknik hem analitik düşünmeye yönlendirdi —
+          Python ile ajan mimarileri kurmaktan, Türkiye'nin para politikası
+          dinamiklerini incelemeye kadar geniş bir yelpazede çalışıyorum.
+        </p>
+        <p>
+          <span class="accent">Exposure AI Academy</span>'e katılarak yapay zeka ve
+          iş dünyası üzerine bilgimi derinleştirmeyi hedefliyorum; özellikle
+          agentic sistemler ve gerçek dünya problemlerine (yaşlı bakımı, finansal
+          okuryazarlık gibi) uygulanabilir çözümler tasarlamak istiyorum.
+        </p>
+      </div>
+      <div class="info-card">
+        <div class="info-row"><span class="k">Okul</span><span class="v">Robert Koleji</span></div>
+        <div class="info-row"><span class="k">Sınıf</span><span class="v">10. Sınıf</span></div>
+        <div class="info-row"><span class="k">İlgi Alanları</span><span class="v">AI · Ekonomi · Politika</span></div>
+        <div class="info-row"><span class="k">Konum</span><span class="v">Türkiye</span></div>
+        <div class="info-row"><span class="k">Hedef</span><span class="v">Exposure AI Academy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projeler">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02 / Projeler</div>
+      <div class="sec-title">Üzerinde Çalıştığım Projeler</div>
+    </div>
+    <div class="projects">
+      <div class="proj-card">
+        <div class="proj-icon">01</div>
+        <div>
+          <div class="proj-title">Elderly-Care Multi-Agent Sistemi</div>
+          <div class="proj-desc">
+            Yaşlı bireylerin günlük yaşamını desteklemek için birbiriyle
+            koordineli çalışan yapay zeka ajanlarından oluşan bir sistem
+            tasarımı — hatırlatıcı, sağlık takibi ve acil durum ajanlarının
+            orkestrasyonuna odaklanıyor.
+          </div>
+          <div class="tag-row">
+            <span class="tag">Multi-Agent</span>
+            <span class="tag">Python</span>
+            <span class="tag">Sosyal Etki</span>
+          </div>
+          <div class="status">Devam ediyor</div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">02</div>
+        <div>
+          <div class="proj-title">Türk Para Politikası Düzenlemelerinde AI</div>
+          <div class="proj-desc">
+            TCMB'nin para politikası araçlarını ve düzenleyici çerçevesini
+            yapay zeka destekli analiz yöntemleriyle inceleyen bir araştırma
+            projesi — enflasyon, faiz kararları ve piyasa tepkileri arasındaki
+            ilişkileri modellemeyi hedefliyor.
+          </div>
+          <div class="tag-row">
+            <span class="tag">Ekonomi</span>
+            <span class="tag">AI Analizi</span>
+            <span class="tag">TCMB</span>
+          </div>
+          <div class="status">Devam ediyor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="yetenekler">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03 / Yetenekler</div>
+      <div class="sec-title">Ajan Ağı: Bildiklerim Birbirine Bağlı</div>
+    </div>
+    <div class="skills-field">
+      <canvas id="skills-canvas"></canvas>
+    </div>
+    <div class="skill-caption">// düğümler birbirine yakınken bağlanır — tıpkı bir multi-agent sistemi gibi</div>
+  </div>
+</section>
+
+<section id="iletisim">
+  <div class="wrap">
+    <div class="contact-box">
+      <div class="contact-title">Konuşalım mı?</div>
+      <div class="contact-sub">Exposure AI, projeler veya işbirlikleri hakkında yazabilirsin.</div>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:yilalie.29@robcol.k12.tr">✉ yilalie.29@robcol.k12.tr</a>
+        <a class="btn btn-ghost" href="https://github.com/alierdem1yilmaz" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/ali-erdem-yilmaz-5b8875340/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Ali Erdem Yılmaz · 2026 · Elle kodlandı, ajanlarla düşünüldü</footer>
+
+<button id="chat-toggle" aria-label="Sohbet asistanını aç" aria-expanded="false" aria-controls="chat-panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="dot"></span>
+</button>
+
+<div id="chat-panel" role="dialog" aria-label="Ali Erdem ile sohbet">
+  <div class="chat-head">
+    <div>
+      <div class="chat-head-title">Sor bana 👋</div>
+      <div class="chat-head-sub">Gemini destekli asistan</div>
+    </div>
+    <button id="chat-close" aria-label="Sohbeti kapat">✕</button>
+  </div>
+  <div id="chat-messages"></div>
+  <form id="chat-form">
+    <textarea id="chat-input" rows="1" placeholder="Bir soru sor..." aria-label="Mesajınız"></textarea>
+    <button id="chat-send" type="submit" aria-label="Gönder">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+(function(){
+  // ---- Chat widget: Gemini-powered Q&A about Ali Erdem Yılmaz ----
+  // API key stays server-side in /api/chat.js — never exposed to the browser.
+  var toggle = document.getElementById('chat-toggle');
+  var panel = document.getElementById('chat-panel');
+  var closeBtn = document.getElementById('chat-close');
+  var messagesEl = document.getElementById('chat-messages');
+  var form = document.getElementById('chat-form');
+  var input = document.getElementById('chat-input');
+  var sendBtn = document.getElementById('chat-send');
+  var history = [];
+  var opened = false;
+
+  function addMessage(role, text){
+    var div = document.createElement('div');
+    div.className = 'chat-msg ' + role;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  function openPanel(){
+    panel.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    if(!opened){
+      opened = true;
+      addMessage('bot', 'Merhaba! Ali Erdem\'in projeleri, ilgi alanları ya da iletişim bilgileri hakkında bana soru sorabilirsin.');
+    }
+    input.focus();
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function(){
+    panel.classList.contains('open') ? closePanel() : openPanel();
+  });
+  closeBtn.addEventListener('click', closePanel);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+  });
+
+  input.addEventListener('input', function(){
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 96) + 'px';
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var text = input.value.trim();
+    if(!text) return;
+    addMessage('user', text);
+    history.push({ role: 'user', parts: [{ text: text }] });
+    input.value = '';
+    input.style.height = 'auto';
+    input.disabled = true;
+    sendBtn.disabled = true;
+    var pending = addMessage('bot pending', 'yazıyor...');
+
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ history: history })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      var reply = data && data.reply;
+      pending.remove();
+      if(reply){
+        addMessage('bot', reply.trim());
+        history.push({ role: 'model', parts: [{ text: reply.trim() }] });
+      } else {
+        addMessage('bot', 'Şu anda cevap veremiyorum, biraz sonra tekrar dener misin? Ya da doğrudan yilalie.29@robcol.k12.tr adresinden ulaşabilirsin.');
+      }
+    })
+    .catch(function(){
+      pending.remove();
+      addMessage('bot', 'Bir bağlantı sorunu oluştu. Doğrudan yilalie.29@robcol.k12.tr adresinden ulaşabilirsin.');
+    })
+    .finally(function(){
+      input.disabled = false;
+      sendBtn.disabled = false;
+      input.focus();
+    });
+  });
+})();
+
+(function(){
+  // ---- Hero background: floating agent nodes with connecting lines ----
+  var hc = document.getElementById('agent-canvas');
+  var hctx = hc.getContext('2d');
+  var heroSection = hc.parentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function sizeCanvas(canvas, container){
+    var rect = container.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    return rect;
+  }
+
+  var heroRect = sizeCanvas(hc, heroSection);
+  var heroNodes = [];
+  var HERO_COUNT = window.innerWidth < 700 ? 22 : 42;
+
+  function initHeroNodes(){
+    heroNodes = [];
+    for(var i=0;i<HERO_COUNT;i++){
+      heroNodes.push({
+        x: Math.random()*heroRect.width,
+        y: Math.random()*heroRect.height,
+        vx: (Math.random()-0.5)*0.18,
+        vy: (Math.random()-0.5)*0.18,
+        r: Math.random()*1.6+1
+      });
+    }
+  }
+  initHeroNodes();
+
+  function drawHero(){
+    hctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    hctx.clearRect(0,0,heroRect.width, heroRect.height);
+    for(var i=0;i<heroNodes.length;i++){
+      var n = heroNodes[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<0||n.x>heroRect.width) n.vx*=-1;
+      if(n.y<0||n.y>heroRect.height) n.vy*=-1;
+    }
+    for(var i=0;i<heroNodes.length;i++){
+      for(var j=i+1;j<heroNodes.length;j++){
+        var a=heroNodes[i], b=heroNodes[j];
+        var dx=a.x-b.x, dy=a.y-b.y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 140){
+          hctx.strokeStyle = 'rgba(168,85,247,' + (0.16*(1-dist/140)) + ')';
+          hctx.lineWidth = 1;
+          hctx.beginPath();
+          hctx.moveTo(a.x,a.y);
+          hctx.lineTo(b.x,b.y);
+          hctx.stroke();
+        }
+      }
+    }
+    for(var i=0;i<heroNodes.length;i++){
+      var n = heroNodes[i];
+      hctx.beginPath();
+      hctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      hctx.fillStyle = 'rgba(236,73,153,0.55)';
+      hctx.fill();
+    }
+    if(!reduceMotion) requestAnimationFrame(drawHero);
+  }
+  drawHero();
+
+  window.addEventListener('resize', function(){
+    heroRect = sizeCanvas(hc, heroSection);
+    initHeroNodes();
+  });
+
+  // ---- Skills field: labeled agent nodes ----
+  var sc = document.getElementById('skills-canvas');
+  var sctx = sc.getContext('2d');
+  var skillsField = sc.parentElement;
+  var skillLabels = [
+    'AI Fundamentals','Data Viz. with R','Business Essentials',
+    'Python','Multi-Agent Systems','Ekonomi Analizi'
+  ];
+  var skillRect = sizeCanvas(sc, skillsField);
+  var skillNodes = [];
+
+  function initSkillNodes(){
+    skillNodes = [];
+    var cols = skillLabels.length;
+    for(var i=0;i<cols;i++){
+      skillNodes.push({
+        label: skillLabels[i],
+        x: (skillRect.width/(cols+1))*(i+1) + (Math.random()-0.5)*30,
+        y: skillRect.height/2 + (Math.random()-0.5)*80,
+        vx: (Math.random()-0.5)*0.25,
+        vy: (Math.random()-0.5)*0.25
+      });
+    }
+  }
+  initSkillNodes();
+
+  sctx.font = '12px IBM Plex Mono, monospace';
+
+  function drawSkills(){
+    sctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    sctx.clearRect(0,0,skillRect.width, skillRect.height);
+
+    for(var i=0;i<skillNodes.length;i++){
+      var n = skillNodes[i];
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<40||n.x>skillRect.width-40) n.vx*=-1;
+      if(n.y<30||n.y>skillRect.height-30) n.vy*=-1;
+    }
+
+    for(var i=0;i<skillNodes.length;i++){
+      for(var j=i+1;j<skillNodes.length;j++){
+        var a=skillNodes[i], b=skillNodes[j];
+        var dx=a.x-b.x, dy=a.y-b.y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 220){
+          var grad = sctx.createLinearGradient(a.x,a.y,b.x,b.y);
+          grad.addColorStop(0,'rgba(168,85,247,'+(0.35*(1-dist/220))+')');
+          grad.addColorStop(1,'rgba(236,73,153,'+(0.35*(1-dist/220))+')');
+          sctx.strokeStyle = grad;
+          sctx.lineWidth = 1;
+          sctx.beginPath();
+          sctx.moveTo(a.x,a.y);
+          sctx.lineTo(b.x,b.y);
+          sctx.stroke();
+        }
+      }
+    }
+
+    for(var i=0;i<skillNodes.length;i++){
+      var n = skillNodes[i];
+      var w = sctx.measureText(n.label).width + 20;
+      sctx.fillStyle = 'rgba(22,19,31,0.92)';
+      sctx.strokeStyle = 'rgba(168,85,247,0.5)';
+      sctx.lineWidth = 1;
+      roundRect(sctx, n.x - w/2, n.y - 14, w, 28, 8);
+      sctx.fill();
+      sctx.stroke();
+      sctx.fillStyle = '#ece9f5';
+      sctx.textAlign = 'center';
+      sctx.textBaseline = 'middle';
+      sctx.fillText(n.label, n.x, n.y+1);
+    }
+
+    if(!reduceMotion) requestAnimationFrame(drawSkills);
+  }
+
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
+  }
+
+  drawSkills();
+
+  window.addEventListener('resize', function(){
+    skillRect = sizeCanvas(sc, skillsField);
+    initSkillNodes();
+  });
+
+  if(reduceMotion){
+    // draw a single static frame for accessibility preference
+  }
+})();
+</script>
+
+</body>
+</html>
